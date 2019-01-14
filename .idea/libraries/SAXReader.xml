@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SAXReader">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../SAXReader/out/artifacts/SAXReader_jar/SAXReader.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,7 @@
+<root>
+    <test1 attr1="attrvalue1" attr2="attrvalue2">
+        Test1's Value
+    </test1>
+    <!-- test comment -->
+    <test2 attr3="attrvalue3" attr4="attrvalue4"/>
+</root>
