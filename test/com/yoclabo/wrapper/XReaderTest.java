@@ -1,5 +1,7 @@
 package com.yoclabo.wrapper;
 
+import com.yoclabo.wrapper.xml.NodeEntity;
+import com.yoclabo.wrapper.xml.XReader;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

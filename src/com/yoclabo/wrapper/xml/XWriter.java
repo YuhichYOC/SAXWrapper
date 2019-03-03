@@ -19,7 +19,7 @@
  *
  */
 
-package com.yoclabo.wrapper;
+package com.yoclabo.wrapper.xml;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -52,7 +52,8 @@ public class XWriter {
                 || null == writerSetting.find("Writer").find("Setting").find("NewLine").find("OpeningBracket")
         ) {
             newLineAfterOpeningBracket = true;
-        } else {
+        }
+        else {
             newLineAfterOpeningBracket = writerSetting.find("Writer").find("Setting").find("NewLine").find("OpeningBracket").getNodeValue().equals("YES");
         }
         if (null == writerSetting.find("Writer")
@@ -61,7 +62,8 @@ public class XWriter {
                 || null == writerSetting.find("Writer").find("Setting").find("NewLine").find("ClosingBracket")
         ) {
             newLineAfterClosingBracket = true;
-        } else {
+        }
+        else {
             newLineAfterClosingBracket = writerSetting.find("Writer").find("Setting").find("NewLine").find("ClosingBracket").getNodeValue().equals("YES");
         }
         if (null == writerSetting.find("Writer")
@@ -70,7 +72,8 @@ public class XWriter {
                 || null == writerSetting.find("Writer").find("Setting").find("NewLine").find("AfterAttrElements")
         ) {
             newLineAfterAttributes = true;
-        } else {
+        }
+        else {
             newLineAfterAttributes = writerSetting.find("Writer").find("Setting").find("NewLine").find("AfterAttrElements").getNodeValue().equals("YES");
         }
         if (null == writerSetting.find("Writer")
@@ -79,7 +82,8 @@ public class XWriter {
                 || null == writerSetting.find("Writer").find("Setting").find("NewLine").find("AfterNodeValue")
         ) {
             newLineAfterNodeValue = true;
-        } else {
+        }
+        else {
             newLineAfterNodeValue = writerSetting.find("Writer").find("Setting").find("NewLine").find("AfterNodeValue").getNodeValue().equals("YES");
         }
         if (null == writerSetting.find("Writer")
@@ -87,7 +91,8 @@ public class XWriter {
                 || null == writerSetting.find("Writer").find("Setting").find("IndentSize")
         ) {
             indentSize = 2;
-        } else {
+        }
+        else {
             indentSize = Integer.parseInt(writerSetting.find("Writer").find("Setting").find("IndentSize").getNodeValue());
         }
     }
@@ -119,7 +124,7 @@ public class XWriter {
             }
         }
         ret = newLine(ret, true);
-        if (com.yoclabo.reader.NodeEntity.TYPE.ELEMENT == n.getType()) {
+        if (com.yoclabo.reader.xml.NodeEntity.TYPE.ELEMENT == n.getType()) {
             ret += toStringEndElement(n);
         }
         return ret;
@@ -134,7 +139,8 @@ public class XWriter {
                 ret = newLine(ret, newLineAfterAttributes);
             }
             ret += indent(n, 1) + ">";
-        } else {
+        }
+        else {
             ret += ">";
         }
         ret = newLine(ret, newLineAfterClosingBracket);
@@ -158,7 +164,8 @@ public class XWriter {
                 ret = newLine(ret, newLineAfterAttributes);
             }
             ret += indent(n, 1) + "/>";
-        } else {
+        }
+        else {
             ret += "/>";
         }
         return ret;
@@ -181,7 +188,8 @@ public class XWriter {
     private String newLine(String arg, boolean newLine) {
         if (newLine) {
             return arg + "\n";
-        } else {
+        }
+        else {
             return arg;
         }
     }

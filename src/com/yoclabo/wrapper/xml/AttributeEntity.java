@@ -19,7 +19,7 @@
  *
  */
 
-package com.yoclabo.wrapper;
+package com.yoclabo.wrapper.xml;
 
 public class AttributeEntity {
 

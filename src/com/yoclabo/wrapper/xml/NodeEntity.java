@@ -19,9 +19,9 @@
  *
  */
 
-package com.yoclabo.wrapper;
+package com.yoclabo.wrapper.xml;
 
-import com.yoclabo.reader.NodeEntity.TYPE;
+import com.yoclabo.reader.xml.NodeEntity.TYPE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +79,7 @@ public class NodeEntity {
         return myType;
     }
 
-    public void setType(com.yoclabo.reader.NodeEntity.TYPE arg) {
+    public void setType(com.yoclabo.reader.xml.NodeEntity.TYPE arg) {
         myType = arg;
     }
 
@@ -102,7 +102,8 @@ public class NodeEntity {
     private String attrByName(String name) {
         if (attrExists(name)) {
             return attrList.stream().filter(a -> a.nameEquals(name)).findFirst().get().getAttrValue();
-        } else {
+        }
+        else {
             return "";
         }
     }

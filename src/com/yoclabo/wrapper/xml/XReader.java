@@ -19,10 +19,10 @@
  *
  */
 
-package com.yoclabo.wrapper;
+package com.yoclabo.wrapper.xml;
 
-import com.yoclabo.reader.NodeEntity;
-import com.yoclabo.reader.SAXReader;
+import com.yoclabo.reader.xml.NodeEntity;
+import com.yoclabo.reader.xml.SAXReader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -32,7 +32,7 @@ public class XReader {
 
     private String directory;
     private String fileName;
-    private com.yoclabo.wrapper.NodeEntity node;
+    private com.yoclabo.wrapper.xml.NodeEntity node;
     private int currentNodeId;
     private int depth;
 
@@ -53,19 +53,19 @@ public class XReader {
         return directory + "/" + fileName;
     }
 
-    public com.yoclabo.wrapper.NodeEntity getNode() {
+    public com.yoclabo.wrapper.xml.NodeEntity getNode() {
         return node;
     }
 
     public void parse() throws IOException {
-        node = new com.yoclabo.wrapper.NodeEntity();
+        node = new com.yoclabo.wrapper.xml.NodeEntity();
         node.setNodeName(fileName);
         node.setNodeId(0);
         node.setDepth(0);
         node.setType(NodeEntity.TYPE.ELEMENT);
         SAXReader r = new SAXReader(readToEnd());
         do {
-            com.yoclabo.reader.NodeEntity n = r.next();
+            com.yoclabo.reader.xml.NodeEntity n = r.next();
             parseElement(n);
             parseEmpty(n);
             parseText(n);
@@ -82,11 +82,11 @@ public class XReader {
         return ret.toString();
     }
 
-    private void parseElement(com.yoclabo.reader.NodeEntity n) {
+    private void parseElement(com.yoclabo.reader.xml.NodeEntity n) {
         if (NodeEntity.TYPE.ELEMENT != n.getType()) {
             return;
         }
-        com.yoclabo.wrapper.NodeEntity newNode = new com.yoclabo.wrapper.NodeEntity();
+        com.yoclabo.wrapper.xml.NodeEntity newNode = new com.yoclabo.wrapper.xml.NodeEntity();
         newNode.setNodeName(n.getNodeName());
         newNode.setNodeId(currentNodeId);
         newNode.setDepth(depth);
@@ -97,11 +97,11 @@ public class XReader {
         ++depth;
     }
 
-    private void parseEmpty(com.yoclabo.reader.NodeEntity n) {
+    private void parseEmpty(com.yoclabo.reader.xml.NodeEntity n) {
         if (NodeEntity.TYPE.EMPTY_ELEMENT != n.getType()) {
             return;
         }
-        com.yoclabo.wrapper.NodeEntity newNode = new com.yoclabo.wrapper.NodeEntity();
+        com.yoclabo.wrapper.xml.NodeEntity newNode = new com.yoclabo.wrapper.xml.NodeEntity();
         newNode.setNodeName(n.getNodeName());
         newNode.setNodeId(currentNodeId);
         newNode.setDepth(depth);
@@ -111,25 +111,25 @@ public class XReader {
         parseAttributes(n, newNode);
     }
 
-    private void parseText(com.yoclabo.reader.NodeEntity n) {
+    private void parseText(com.yoclabo.reader.xml.NodeEntity n) {
         if (NodeEntity.TYPE.TEXT != n.getType()) {
             return;
         }
         node.findTail(depth).setNodeValue(n.getNodeValue());
     }
 
-    private void parseEndElement(com.yoclabo.reader.NodeEntity n) {
+    private void parseEndElement(com.yoclabo.reader.xml.NodeEntity n) {
         if (NodeEntity.TYPE.END_ELEMENT != n.getType()) {
             return;
         }
         --depth;
     }
 
-    private void parseComment(com.yoclabo.reader.NodeEntity n) {
+    private void parseComment(com.yoclabo.reader.xml.NodeEntity n) {
         if (NodeEntity.TYPE.COMMENT != n.getType()) {
             return;
         }
-        com.yoclabo.wrapper.NodeEntity newNode = new com.yoclabo.wrapper.NodeEntity();
+        com.yoclabo.wrapper.xml.NodeEntity newNode = new com.yoclabo.wrapper.xml.NodeEntity();
         newNode.setNodeName("COMMENT");
         newNode.setNodeId(currentNodeId);
         newNode.setDepth(depth);
@@ -139,9 +139,9 @@ public class XReader {
         node.findTail(depth).addChild(newNode);
     }
 
-    private void parseAttributes(com.yoclabo.reader.NodeEntity nr, com.yoclabo.wrapper.NodeEntity nw) {
-        for (com.yoclabo.reader.AttributeEntity a : nr.getAttributes()) {
-            com.yoclabo.wrapper.AttributeEntity newAttr = new com.yoclabo.wrapper.AttributeEntity();
+    private void parseAttributes(com.yoclabo.reader.xml.NodeEntity nr, com.yoclabo.wrapper.xml.NodeEntity nw) {
+        for (com.yoclabo.reader.xml.AttributeEntity a : nr.getAttributes()) {
+            AttributeEntity newAttr = new AttributeEntity();
             newAttr.setAttrName(a.getAttrName());
             newAttr.setAttrValue(a.getAttrValue());
             nw.addAttr(newAttr);
