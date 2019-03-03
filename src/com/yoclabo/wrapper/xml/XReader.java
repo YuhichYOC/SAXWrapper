@@ -66,6 +66,7 @@ public class XReader {
         SAXReader r = new SAXReader(readToEnd());
         do {
             com.yoclabo.reader.xml.NodeEntity n = r.next();
+            parseDeclaration(n);
             parseElement(n);
             parseEmpty(n);
             parseText(n);
@@ -80,6 +81,19 @@ public class XReader {
             r.lines().forEach(l -> ret.append(l));
         }
         return ret.toString();
+    }
+
+    private void parseDeclaration(com.yoclabo.reader.xml.NodeEntity n) {
+        if (NodeEntity.TYPE.XML_DECLARATION != n.getType()) {
+            return;
+        }
+        com.yoclabo.wrapper.xml.NodeEntity newNode = new com.yoclabo.wrapper.xml.NodeEntity();
+        newNode.setNodeName("Declaration");
+        newNode.setNodeId(currentNodeId);
+        newNode.setDepth(depth);
+        newNode.setType(NodeEntity.TYPE.XML_DECLARATION);
+        ++currentNodeId;
+        node.findTail(depth).addChild(newNode);
     }
 
     private void parseElement(com.yoclabo.reader.xml.NodeEntity n) {
